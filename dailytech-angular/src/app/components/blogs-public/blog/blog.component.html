@@ -1,0 +1,18 @@
+<hr class="bar-white" />
+<h2><span class="daily-tech monoton text-box">OUR DAILY TECH</span></h2>
+<hr class="bar-white"/>
+<!-- <article class="blog" (click)="onClicked()">
+    <div>{{ blog  }}</div>
+</article> -->
+<div class="outer-div">
+  <mat-spinner *ngIf="blogsLoading" class="centerSpinner"></mat-spinner>
+  <div  class="inner-div" *ngIf="blog">
+    <span class="category">{{ blog.cat3 }}</span>
+    <!-- <button class="btnModal" mat-stroked-button>Modal</button> -->
+  <span class="date" [innerHTML]="blog.date | safeHtml"></span>
+    <h5 class="blog-title" [innerHTML]="blog.title | safeHtml"></h5>
+    <p [innerHTML]="blog.post | safeHtml"></p>
+    <p [innerHTML]="blog.blogcite | safeHtml"></p>
+  </div>
+
+</div>

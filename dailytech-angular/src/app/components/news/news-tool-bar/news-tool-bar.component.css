@@ -1,0 +1,11 @@
+.menu-button {
+  margin-top: 6px;
+  margin-right: 10px;
+}
+ a {
+  cursor: pointer !important;
+}
+.mat-toolbar {
+  background: #cfd6d5cb;
+  color: white;
+}

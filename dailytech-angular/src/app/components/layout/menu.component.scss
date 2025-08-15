@@ -1,0 +1,66 @@
+
+
+ li.pointer  {
+   cursor: pointer;
+ }
+
+ h1,
+ h2,
+ h3,
+ h4,
+ h5,
+ h6 {
+     margin: 8px 0;
+ }
+
+ p {
+     margin: 0;
+ }
+
+ .spacer {
+     flex: 1;
+ }
+mat-toolbar {
+    height:80px;
+}
+mat-toolbar.mat-primary {
+    background: #673ab75c;
+}
+
+div.menu {
+  background-image: url("../../../assets/bluechipTile.jpg");
+}
+#menu-list a {
+
+  color:rgba(255, 255, 255, 0.497);
+  font-family:'roboto';
+}
+
+ .logo {
+     /* position: relative; */
+     top: -10px;
+     height: 75px;
+     margin: 0 10px;
+ }
+ .logo-box {
+   background-color:transparent;
+   cursor:pointer;
+ }
+
+ /* ANIMATION */
+
+
+
+ a,
+ a:visited, a:hover  {
+     text-decoration: none;
+     font-weight:500;
+     font-size: 1.4rem;
+     min-height:100%;
+ }
+
+ a:active {
+     color: lightgray;
+ }
+
+

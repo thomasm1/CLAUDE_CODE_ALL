@@ -1,0 +1,87 @@
+$color-primary-text:  rgb(40, 38, 65);
+
+ mat-card {
+     background: rgba(191, 185, 248, 0.233);
+    
+ }
+h6 {
+    color:black;
+}
+hr {
+    margin:10px 10px; 
+    margin:auto;
+}
+ li {
+     list-style-type: none;
+ }
+.groups {
+    min-height: 1000px;
+
+}
+ button {
+     margin-right: 10px;
+ }
+.btnCat {
+    padding:1px;
+    margin:2px;
+}
+ .daily-tech {
+    color: $color-primary-text;
+}
+.date {
+max-width:60px;
+ 
+}
+/////#####################
+ div.temp {
+    white-space:normal;
+     max-height: 1500px;
+     min-height: 1200px;
+     width: 70%;
+     overflow-y: scroll;
+ 
+     color: $color-primary-text;
+     background: aliceblue;
+     border-radius: 5px;
+     margin: 30px auto;
+ }
+ .view-blog {
+     cursor: pointer;
+ }
+ .view-blog:hover {
+    background: rgba(96, 79, 245, 0.692);
+ }
+
+.blog-post {
+    // height:200px;
+min-height:50px;
+overflow-y: hidden;
+
+}
+@media only screen and (max-width: 600px) {
+
+    div.temp {
+        max-height: 1000px;
+        min-height: 800px;
+        width: 100%;
+        overflow-y: scroll;
+        padding: 5px,5px;
+        color: $color-primary-text;
+        background: aliceblue;
+        border-radius: 5px;
+        margin: 30px auto;
+    }
+ mat-card {
+         padding:0px,3px; 
+   }
+   p.firstparagraph {
+    line-height:2rem;
+   }
+  p,p.quote { 
+       
+        font-size:12px; 
+        line-height:1.5rem; 
+
+ 
+    }
+  }
