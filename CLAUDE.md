@@ -51,7 +51,8 @@ cd dailytech-react
 npm start                      # Start on port 3000
 npm run start3001              # Start on port 3001  
 npm run build                  # Production build
-npm test                       # Run tests
+npm test                       # Run tests (54 passing tests)
+npm test -- --watchAll=false   # Single test run
 ```
 
 ### Daily Tech Angular (Frontend)
@@ -123,6 +124,8 @@ docker-compose up -d                      # Start Kafka + OpenSearch
 - **Styling**: Bootstrap 5 + Reactstrap components
 - **Routing**: React Router DOM v6
 - **Structure**: `src/components/`, `src/state/`, `src/services/`
+- **Testing**: Jest + React Testing Library (54 passing tests)
+- **Features**: Posts with weblink citations, comments, news categories
 
 ### Daily Tech Angular
 - **Pattern**: Angular 14 with NgRx state management  
@@ -173,9 +176,11 @@ docker-compose up -d                      # Start Kafka + OpenSearch
 - **Database**: Test database isolation
 
 ### React (dailytech-react)  
-- **Framework**: React Testing Library + Jest
-- **Components**: Unit testing with RTL
-- **Integration**: API mocking with MSW patterns
+- **Framework**: React Testing Library + Jest (54 passing tests)
+- **Components**: Form components, validation, user interactions
+- **Services**: API integration, CRUD operations, weblinks functionality
+- **Redux**: State management, actions, reducers testing
+- **Integration**: End-to-end workflows with mocked services
 
 ### Angular (dailytech-angular)
 - **Framework**: Jasmine + Karma

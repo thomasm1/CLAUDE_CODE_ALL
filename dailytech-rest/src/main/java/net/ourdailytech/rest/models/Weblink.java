@@ -1,5 +1,6 @@
 package net.ourdailytech.rest.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,6 +32,12 @@ public class Weblink extends Bookmark {
     @Enumerated(EnumType.STRING)
     @Column(name = "downloadstatus", length = 32, nullable = false)
     private DownloadStatus downloadStatus = DownloadStatus.NOT_ATTEMPTED;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    @ToString.Exclude
+    private PostEntity postEntity;
 
     public Weblink(long id, String url, String htmlPage) {
         this.id = id;

@@ -92,4 +92,5 @@ class BooksServiceTest {
 
         BookDto result = booksService.updateBook(bookDto);
         assertNotNull(result);
+    }
 }

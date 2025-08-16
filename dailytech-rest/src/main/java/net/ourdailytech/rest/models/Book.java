@@ -5,7 +5,6 @@ import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 @Setter @Getter
 @Entity
 @Table(name = "books", schema = "dailytech")

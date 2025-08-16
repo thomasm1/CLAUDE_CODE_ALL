@@ -23,24 +23,24 @@ class PostsService {
         }
     }
     
-    async addPost(id, news) {
+    async addWeblink(id, weblink) {
         const bearerToken = localStorage.getItem('accessToken') || JWT_TOKEN
-        const post = await axios.get(`${POSTS_BASE_URL}/posts/${id}`, {
+        const response = await axios.get(`${POSTS_BASE_URL}/posts/${id}`, {
             headers: {
                 Authorization: `Bearer ${bearerToken}`
             }
         });
-        if (!post.news) {
-            post.news = [];
+        const post = response.data;
+        if (!post.weblinks) {
+            post.weblinks = [];
         }
-        post.news.push(news);
-        console.log("postsService :", post);
-        await axios.put(`${POSTS_BASE_URL}/posts/${id}`, post
-            , {
-                headers: {
-                    Authorization: `Bearer ${bearerToken}`
-                }
-            });
+        post.weblinks.push(weblink);
+        console.log("postsService addWeblink:", post);
+        await axios.put(`${POSTS_BASE_URL}/posts/${id}`, post, {
+            headers: {
+                Authorization: `Bearer ${bearerToken}`
+            }
+        });
     }
 
     async getPost(id) {

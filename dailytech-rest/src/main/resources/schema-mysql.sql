@@ -114,7 +114,9 @@ CREATE TABLE IF NOT EXISTS dailytech.weblinks (
   host VARCHAR(255) NULL,
   htmlpage LONGTEXT NULL,
   downloadstatus VARCHAR(32) NOT NULL DEFAULT 'NOT_ATTEMPTED',
-  CONSTRAINT pk_weblinks PRIMARY KEY (id)
+  post_id BIGINT NULL,
+  CONSTRAINT pk_weblinks PRIMARY KEY (id),
+  CONSTRAINT fk_weblinks_on_post FOREIGN KEY (post_id) REFERENCES dailytech.post_entity (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE INDEX idx_post_entity_category_id ON dailytech.post_entity (category_id);

@@ -81,6 +81,19 @@ CREATE TABLE dailytech.users_roles
 
 );
 
+CREATE TABLE dailytech.weblinks
+(
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    profile_url VARCHAR(1000) NULL,
+    url VARCHAR(1000) NOT NULL,
+    host VARCHAR(255) NULL,
+    htmlpage CLOB NULL,
+    downloadstatus VARCHAR(32) NOT NULL DEFAULT 'NOT_ATTEMPTED',
+    post_id BIGINT NULL,
+    CONSTRAINT pk_weblinks PRIMARY KEY (id)
+);
+
 ALTER TABLE dailytech.post_entity
     ADD CONSTRAINT uc_8d90691f1af937cce1e76c802 UNIQUE (id);
 
@@ -102,3 +115,6 @@ ALTER TABLE dailytech.users_roles
 
 ALTER TABLE dailytech.users_roles
     ADD CONSTRAINT fk_userol_on_user FOREIGN KEY (user_id) REFERENCES dailytech.users (userid);
+
+ALTER TABLE dailytech.weblinks
+    ADD CONSTRAINT FK_WEBLINKS_ON_POST FOREIGN KEY (post_id) REFERENCES dailytech.post_entity (id);

@@ -10,7 +10,7 @@ import {
 } from '../types';
 
 
-export async function  addPost(postId, news) {
+export async function  addWeblink(postId, weblink) {
     const bearerToken = localStorage.getItem('accessToken') || JWT_TOKEN
 
     const request  = await axios.get(`${POSTS_BASE_URL}/posts/${postId}`, {
@@ -20,14 +20,13 @@ export async function  addPost(postId, news) {
     }).then(response => response.data);
     
     const post = request;
-    if (!post.news) {
-        post.news = [];
+    if (!post.weblinks) {
+        post.weblinks = [];
     }
-    post.news.push(news);   
-    console.log("postsService :", post);
+    post.weblinks.push(weblink);   
+    console.log("postsAction addWeblink:", post);
 
-    await axios.put(`${POSTS_BASE_URL}/posts/${postId}`, post
-    , {
+    await axios.put(`${POSTS_BASE_URL}/posts/${postId}`, post, {
         headers: {
             Authorization: `Bearer ${bearerToken}`
         }
