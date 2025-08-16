@@ -1,0 +1,23 @@
+<hr class="bar-white" />
+<h2><span class="daily-tech monoton text-box">OUR DAILY TECH</span></h2>
+<hr class="bar-white" />
+<div class="temp">
+
+  <div class="outer-div">
+    <mat-spinner *ngIf="blogsLoading" class="centerSpinner"></mat-spinner>
+    <div class="inner-div" *ngIf="blogsByCat">
+      <ul *ngFor="let blog of blogsByCat" class="view-blog">
+        <li>
+          <span class="category">{{ blog.cat3 }}</span>
+          <span class="date" [innerHTML]="blog.date | safeHtml"></span>
+          <h5 class="blog-title" [innerHTML]="blog.title | safeHtml"></h5>
+          <span class="posts" [innerHTML]="blog.post | safeHtml"></span>
+          <p [innerHTML]="blog.blogcite | safeHtml"></p>
+        </li>
+        <hr class="bar-blogs" />
+        <hr class="bar-blogs" />
+      </ul>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,38 @@
+<div fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+        <!-- <input type="text" (keyup)="blogFilter($event.target.value)" placeholder="Mod Filter"> -->
+      <input matInput type="text" (keyup)="blogFilter($event.target.value)" placeholder="Mod Filter">
+    </mat-form-field>
+  </div>
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="did"  >
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="did">Date</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="did">{{ element.did  }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="post"  >
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="post">Post</mat-header-cell>
+      <mat-cell *matCellDef="let element"class="post">{{ element.post  }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="cat3" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="cat3">Category</mat-header-cell>
+      <mat-cell *matCellDef="let element"class="cat3">{{ element.cat3 }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="wordCount" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header  class="wordCount">Word Count</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="wordCount">{{ element.wordCount | number }}</mat-cell>
+    </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns:displayedColumns; "></mat-row>
+
+  </mat-table>
+
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[1, 5, 10, 20,30,40]">
+  </mat-paginator>
+ 
