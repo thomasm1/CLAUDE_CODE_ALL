@@ -1,4 +1,4 @@
-package net.ourdailytech.rest.controllerIntegrationTests;
+ package net.ourdailytech.rest.controllerIntegrationTests;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.ourdailytech.rest.models.dto.PostEntityDto;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
-public class WeblinksControllerIntegrationTest {
+public class WeblinksControllerIntegrationTestIT {
 
     @Autowired
     private WebApplicationContext context;
@@ -47,8 +47,8 @@ public class WeblinksControllerIntegrationTest {
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(context)
-                .apply(springSecurity())
-                .build();
+            .apply(springSecurity())
+            .build();
 
         testWeblinkDto = new WeblinkDto();
         testWeblinkDto.setTitle("Test Citation");
@@ -57,14 +57,14 @@ public class WeblinksControllerIntegrationTest {
         testWeblinkDto.setDownloadStatus("SUCCESS");
 
         testPostDto = PostEntityDto.builder()
-                .title("Test Post")
-                .post("Test post content")
-                .did("TEST001")
-                .author("Test Author")
-                .blogcite("Test citation")
-                .email("test@example.com")
-                .categoryId(1L)
-                .build();
+            .title("Test Post")
+            .post("Test post content")
+            .did("TEST001")
+            .author("Test Author")
+            .blogcite("Test citation")
+            .email("test@example.com")
+            .categoryId(1L)
+            .build();
     }
 
     @Test
@@ -73,41 +73,41 @@ public class WeblinksControllerIntegrationTest {
         String weblinkJson = objectMapper.writeValueAsString(testWeblinkDto);
 
         mockMvc.perform(post("/api/weblinks")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(weblinkJson))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value("Test Citation"))
-                .andExpect(jsonPath("$.url").value("https://example.com/article"));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(weblinkJson))
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.title").value("Test Citation"))
+            .andExpect(jsonPath("$.url").value("https://example.com/article"));
     }
 
     @Test
     void testGetAllWeblinks() throws Exception {
-        weblinksService.createWeblink(testWeblinkDto);
+        weblinksService.createWeblinks(testWeblinkDto);
 
         mockMvc.perform(get("/api/weblinks"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray());
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isArray());
     }
 
     @Test
     @WithMockUser(username = "testuser", roles = {"ADMIN"})
     void testAddWeblinkToPost() throws Exception {
         PostEntityDto createdPost = postService.createPost(testPostDto);
-        WeblinkDto createdWeblink = weblinksService.createWeblink(testWeblinkDto);
+        WeblinkDto createdWeblink = weblinksService.createWeblinks(testWeblinkDto);
 
         mockMvc.perform(post("/api/posts/{postId}/weblinks", createdPost.getId())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(testWeblinkDto)))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.title").value("Test Citation"));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(testWeblinkDto)))
+            .andExpect(status().isCreated())
+            .andExpect(jsonPath("$.title").value("Test Citation"));
     }
 
     @Test
     @WithMockUser(username = "testuser", roles = {"ADMIN"})
     void testDeleteWeblink() throws Exception {
-        WeblinkDto createdWeblink = weblinksService.createWeblink(testWeblinkDto);
+        WeblinkDto createdWeblink = weblinksService.createWeblinks(testWeblinkDto);
 
         mockMvc.perform(delete("/api/weblinks/{id}", createdWeblink.getId()))
-                .andExpect(status().isOk());
+            .andExpect(status().isOk());
     }
 }

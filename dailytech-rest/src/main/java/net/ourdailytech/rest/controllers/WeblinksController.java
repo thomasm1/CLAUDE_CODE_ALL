@@ -41,6 +41,14 @@ public class WeblinksController {
         return new ResponseEntity<>(weblinksService.createWeblinks(c), HttpStatus.CREATED);
     }
 
+    // src/main/java/net/ourdailytech/rest/controllers/WeblinksController.java
+    @PostMapping("/posts/{postId}/weblinks")
+    public ResponseEntity<WeblinkDto> addWeblinkToPost(
+        @PathVariable("postId") Long postId,
+        @RequestBody WeblinkDto weblinkDto) {
+        WeblinkDto created = weblinksService.addWeblinkToPost(postId, weblinkDto);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    }
 
     @Operation(
             summary = "GetMapping Weblink By ID REST API ",
@@ -58,8 +66,8 @@ public class WeblinksController {
 
 
     @Operation(
-            summary = "GetMapping Weblink By ID REST API ",
-            description = "GetMapping Weblink By ID REST API is used to get a single Weblink from the database"
+            summary = "GetMapping ALL Weblink ",
+            description = "GetMapping ALL Weblink from the database"
     )
     @ApiResponse(
             responseCode = "200",

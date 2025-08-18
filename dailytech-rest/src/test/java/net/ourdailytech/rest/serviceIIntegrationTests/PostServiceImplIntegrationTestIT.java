@@ -1,4 +1,4 @@
-// src/test/java/net/ourdailytech/rest/serviceTests/PostServiceImplIntegrationTest.java
+// src/test/java/net/ourdailytech/rest/serviceTests/PostServiceImplIntegrationTestIT.java
 package net.ourdailytech.rest.serviceTests;
 
 import net.ourdailytech.rest.models.Category;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @AutoConfigureTestDatabase
 @Transactional
-public class PostServiceImplIntegrationTest {
+public class PostServiceImplIntegrationTestIT {
 
     @Autowired
     private PostService postService;

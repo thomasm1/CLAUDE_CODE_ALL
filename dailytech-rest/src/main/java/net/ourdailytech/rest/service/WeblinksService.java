@@ -8,6 +8,8 @@ import java.util.List;
 public interface WeblinksService {
     public WeblinkDto createWeblinks(WeblinkDto bkmk);
 
+    public WeblinkDto addWeblinkToPost(Long postId, WeblinkDto bkmk);
+
     public WeblinkDto getWeblinks(long id);
 
     public List<WeblinkDto> getAllWeblinks();
