@@ -1,3 +1,4 @@
+// src/test/java/net/ourdailytech/rest/repositoryTests/PostWeblinkRelationshipTest.java
 package net.ourdailytech.rest.repositoryTests;
 
 import net.ourdailytech.rest.models.PostEntity;
@@ -9,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.ActiveProfiles;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,7 +45,7 @@ public class PostWeblinkRelationshipTest {
         PostEntity foundPost = postRepository.findById(post.getId()).orElse(null);
         assertNotNull(foundPost);
         assertEquals(1, foundPost.getWeblinks().size());
-        
+
         Weblink foundWeblink = foundPost.getWeblinks().iterator().next();
         assertEquals("Test Article Citation", foundWeblink.getTitle());
         assertEquals("https://example.com/article", foundWeblink.getUrl());
@@ -56,7 +55,7 @@ public class PostWeblinkRelationshipTest {
     void testCascadeDeleteWeblinksWithPost() {
         PostEntity post = new PostEntity();
         post.setTitle("Test Post");
-        post.setPost("Test content"); 
+        post.setPost("Test content");
         post.setDid("TEST001");
         post.setBlogcite("Test citation");
         post = entityManager.persistAndFlush(post);
@@ -66,7 +65,7 @@ public class PostWeblinkRelationshipTest {
         weblink.setUrl("https://citation.com");
         weblink.setPostEntity(post);
         weblink = entityManager.persistAndFlush(weblink);
-        
+
         Long weblinkId = weblink.getId();
 
         postRepository.delete(post);

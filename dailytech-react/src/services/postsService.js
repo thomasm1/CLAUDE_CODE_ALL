@@ -22,21 +22,40 @@ class PostsService {
             alert("Error creating post. Please check the console for details.");
         }
     }
-    
-    async addWeblink(id, weblink) {
+
+    // ADD WEBLINK TO POST specifiied by post ID:   /api/weblinks/posts/24
+
+    // { 
+//     UPDATEABLE---->  "title": "https://www.thomasmaestas.com/cc",
+//     "profileUrl": "thomasmaestas.net/ccccccprofileUrl.html",
+//    "ownerEmail":   "thomasm1.BB@gmail.com",
+//   UPDATEABLE----> "url": "thomasmaestas.net/ccccindex.html",
+//    UPDATEABLE---->   "host": "thomasmaestas.netcc",
+//     "htmlPage": "<html><head></head><body>hey thomasmaestas!!!!!</body></html>",
+//     "downloadStatus": "SUCCESS",
+//     "itemData": "<item><type>WebLink</type><title>https://www.thomasmaestas.com</title><url>thomasmaestas.net/index.html</url><host>thomasmaestas.net</host></item>",
+//     "web3Link": true 
+// } 
+
+// UPDATE WEBLINK by weblink ID:  /api/weblinks/13
+//     UPDATEABLE---->  "title": "https://www.thomasmaestas.com/cc",
+//   UPDATEABLE----> "url": "thomasmaestas.net/ccccindex.html",
+//    UPDATEABLE---->   "host": "thomasmaestas.netcc",
+
+    async addWeblink(postId, weblink) {
         const bearerToken = localStorage.getItem('accessToken') || JWT_TOKEN
-        const response = await axios.get(`${POSTS_BASE_URL}/posts/${id}`, {
+         
+        await axios.post(`${POSTS_BASE_URL}/weblinks/posts/${postId}`, weblink, {
             headers: {
                 Authorization: `Bearer ${bearerToken}`
             }
         });
-        const post = response.data;
-        if (!post.weblinks) {
-            post.weblinks = [];
-        }
-        post.weblinks.push(weblink);
-        console.log("postsService addWeblink:", post);
-        await axios.put(`${POSTS_BASE_URL}/posts/${id}`, post, {
+    }
+    
+    async editWeblink(weblinkId, weblink) {
+        const bearerToken = localStorage.getItem('accessToken') || JWT_TOKEN
+         
+        await axios.put(`${POSTS_BASE_URL}/weblinks/${weblinkId}`, weblink, {
             headers: {
                 Authorization: `Bearer ${bearerToken}`
             }

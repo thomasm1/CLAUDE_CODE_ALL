@@ -11,13 +11,13 @@ const Header = (  ) => {
             <header className="app-header">
                 <div className="header-content">
                     
-                <NavLink
+                {/* <NavLink
                         to="/"
                         className="nav-link"
                         style={({ isActive }) => ({ color: isActive ? 'blue' : 'darkgray' })}
                     >
                        Home
-                    </NavLink>
+                    </NavLink> */}
                     <NavLink
                         to="/write"
                         className="nav-link"
@@ -26,7 +26,7 @@ const Header = (  ) => {
                         Write!
                     </NavLink>
                     <NavLink
-                        to="/posts"
+                        to="/"
                         className="nav-link"
                         style={({ isActive }) => ({ color: isActive ? 'darkblue' : 'darkgray' })}
                     >
@@ -37,14 +37,13 @@ const Header = (  ) => {
                         className="nav-link"
                         style={({ isActive }) => ({ color: isActive ? 'blue' : 'darkgray' })}
                     >
-                        News by Category
+                        News 
                     </NavLink>
                 </div>
-                <div className="header-content row">
+                {/* <div className="header-content row">
                     <hr />
-                    <h6 style={{ color: styles.h6.color }}>DAILYTECH WRITER</h6> </div>
-                    <hr />
-            </header>
+                    <h6 style={{ color: styles.h6.color }}>DAILYTECH WRITER</h6> </div> */}
+             </header>
         </div>
     );
 }

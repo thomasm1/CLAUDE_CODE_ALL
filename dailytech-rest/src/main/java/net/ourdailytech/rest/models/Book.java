@@ -3,8 +3,8 @@ package net.ourdailytech.rest.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Setter @Getter
 @Entity
 @Table(name = "books", schema = "dailytech")
@@ -35,6 +35,9 @@ public class Book extends Bookmark {
     //  BigDecimal is nicer for exactness
     @Column
     private double rating;
+
+    @Column(length = 255)
+    private String title;
 
     @Override
     public String getItemData() {
