@@ -61,51 +61,119 @@ describe('PostsService', () => {
     });
 
     describe('addWeblink', () => {
-        it('should add weblink to existing post', async () => {
-            const mockPost = {
-                id: 1,
-                title: 'Existing Post',
-                weblinks: [{ title: 'Existing Link', url: 'https://existing.com' }]
+        it('should add weblink to a post successfully', async () => {
+            const postId = 24;
+            const mockWeblink = {
+                title: 'Test Link',
+                url: 'https://example.com',
+                host: 'example.com',
+                profileUrl: 'https://example.com/profile',
+                ownerEmail: 'owner@example.com',
+                web3Link: true
             };
-            const newWeblink = { title: 'New Citation', url: 'https://new-citation.com' };
 
-            mockedAxios.get.mockResolvedValue({ data: mockPost });
-            mockedAxios.put.mockResolvedValue({ data: mockPost });
+            localStorage.getItem = jest.fn(() => 'mock-token');
+            mockedAxios.post.mockResolvedValue({ data: { id: 1, ...mockWeblink } });
 
-            await postsService.addWeblink(1, newWeblink);
+            await postsService.addWeblink(postId, mockWeblink);
 
-            expect(mockedAxios.get).toHaveBeenCalledWith(`${POSTS_BASE_URL}/posts/1`, {
-                headers: { Authorization: `Bearer ${JWT_TOKEN}` }
-            });
-
-            expect(mockedAxios.put).toHaveBeenCalledWith(
-                `${POSTS_BASE_URL}/posts/1`,
-                expect.objectContaining({
-                    weblinks: expect.arrayContaining([
-                        { title: 'Existing Link', url: 'https://existing.com' },
-                        newWeblink
-                    ])
-                }),
-                { headers: { Authorization: `Bearer ${JWT_TOKEN}` } }
+            expect(mockedAxios.post).toHaveBeenCalledWith(
+                `${POSTS_BASE_URL}/weblinks/posts/${postId}`,
+                mockWeblink,
+                {
+                    headers: {
+                        Authorization: 'Bearer mock-token'
+                    }
+                }
             );
         });
 
-        it('should create weblinks array if none exists', async () => {
-            const mockPost = { id: 1, title: 'Post Without Weblinks' };
-            const newWeblink = { title: 'First Citation', url: 'https://first.com' };
+        it('should use JWT_TOKEN when no access token in localStorage', async () => {
+            const postId = 24;
+            const mockWeblink = { title: 'Test', url: 'https://example.com' };
 
-            mockedAxios.get.mockResolvedValue({ data: mockPost });
-            mockedAxios.put.mockResolvedValue({ data: mockPost });
+            localStorage.getItem = jest.fn(() => null);
+            mockedAxios.post.mockResolvedValue({ data: mockWeblink });
 
-            await postsService.addWeblink(1, newWeblink);
+            await postsService.addWeblink(postId, mockWeblink);
+
+            expect(mockedAxios.post).toHaveBeenCalledWith(
+                `${POSTS_BASE_URL}/weblinks/posts/${postId}`,
+                mockWeblink,
+                {
+                    headers: {
+                        Authorization: `Bearer ${JWT_TOKEN}`
+                    }
+                }
+            );
+        });
+
+        it('should handle addWeblink error', async () => {
+            const postId = 24;
+            const mockWeblink = { title: 'Test', url: 'https://example.com' };
+
+            mockedAxios.post.mockRejectedValue(new Error('API Error'));
+
+            await expect(postsService.addWeblink(postId, mockWeblink))
+                .rejects
+                .toThrow('API Error');
+        });
+    });
+
+    describe('editWeblink', () => {
+        it('should edit weblink successfully', async () => {
+            const weblinkId = 13;
+            const mockWeblink = {
+                title: 'Updated Test Link',
+                url: 'https://updated-example.com',
+                host: 'updated-example.com'
+            };
+
+            localStorage.getItem = jest.fn(() => 'mock-token');
+            mockedAxios.put.mockResolvedValue({ data: { id: weblinkId, ...mockWeblink } });
+
+            await postsService.editWeblink(weblinkId, mockWeblink);
 
             expect(mockedAxios.put).toHaveBeenCalledWith(
-                `${POSTS_BASE_URL}/posts/1`,
-                expect.objectContaining({
-                    weblinks: [newWeblink]
-                }),
-                { headers: { Authorization: `Bearer ${JWT_TOKEN}` } }
+                `${POSTS_BASE_URL}/weblinks/${weblinkId}`,
+                mockWeblink,
+                {
+                    headers: {
+                        Authorization: 'Bearer mock-token'
+                    }
+                }
             );
+        });
+
+        it('should use JWT_TOKEN when no access token in localStorage', async () => {
+            const weblinkId = 13;
+            const mockWeblink = { title: 'Updated Test', url: 'https://updated.com' };
+
+            localStorage.getItem = jest.fn(() => null);
+            mockedAxios.put.mockResolvedValue({ data: mockWeblink });
+
+            await postsService.editWeblink(weblinkId, mockWeblink);
+
+            expect(mockedAxios.put).toHaveBeenCalledWith(
+                `${POSTS_BASE_URL}/weblinks/${weblinkId}`,
+                mockWeblink,
+                {
+                    headers: {
+                        Authorization: `Bearer ${JWT_TOKEN}`
+                    }
+                }
+            );
+        });
+
+        it('should handle editWeblink error', async () => {
+            const weblinkId = 13;
+            const mockWeblink = { title: 'Test', url: 'https://example.com' };
+
+            mockedAxios.put.mockRejectedValue(new Error('Update failed'));
+
+            await expect(postsService.editWeblink(weblinkId, mockWeblink))
+                .rejects
+                .toThrow('Update failed');
         });
     });
 

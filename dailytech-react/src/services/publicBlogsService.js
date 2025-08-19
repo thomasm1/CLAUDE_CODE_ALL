@@ -1,13 +1,15 @@
 
 import axios from 'axios';
-import { POSTS_BASE_URL } from '../config';
+import { awsUrlDevId } from '../config';
+import { awsUrlDevAll } from '../config'; 
 import { JWT_TOKEN } from '../config';
 
-class PostsService {
-    async createPost(values) {
+
+class PublicBlogsService {
+    async createBlog(values) {
         const bearerToken = localStorage.getItem('accessToken') || JWT_TOKEN
         try {
-            const post = await axios.post(`${POSTS_BASE_URL}/posts`, {
+            const blog = await axios.post(`${awsUrlDevId}/dev/post`, {
                 ...values,
                 did: Date.now(),
                 date: Date.now(),
@@ -16,7 +18,7 @@ class PostsService {
                 categoryId: 12,
                 blogcite: values.blogcite.join(', '), // Join the selected citations into a comma-separated string
             });
-            alert("Post created successfully!");
+            alert("Blog created successfully!");
         } catch (error) {
             console.error("Error creating post:", error);
             alert("Error creating post. Please check the console for details.");
@@ -42,41 +44,41 @@ class PostsService {
 //   UPDATEABLE----> "url": "thomasmaestas.net/ccccindex.html",
 //    UPDATEABLE---->   "host": "thomasmaestas.netcc",
 
-    async addWeblink(postId, weblink) {
-        const bearerToken = localStorage.getItem('accessToken') || JWT_TOKEN
+    // async addWeblink(postId, weblink) {
+    //     const bearerToken = localStorage.getItem('accessToken') || JWT_TOKEN
          
-        await axios.post(`${POSTS_BASE_URL}/weblinks/posts/${postId}`, weblink, {
-            headers: {
-                Authorization: `Bearer ${bearerToken}`
-            }
-        });
-    }
+    //     await axios.post(`${POSTS_BASE_URL}/weblinks/posts/${postId}`, weblink, {
+    //         headers: {
+    //             Authorization: `Bearer ${bearerToken}`
+    //         }
+    //     });
+    // }
     
-    async editWeblink(weblinkId, weblink) {
-        const bearerToken = localStorage.getItem('accessToken') || JWT_TOKEN
+    // async editWeblink(weblinkId, weblink) {
+    //     const bearerToken = localStorage.getItem('accessToken') || JWT_TOKEN
          
-        await axios.put(`${POSTS_BASE_URL}/weblinks/${weblinkId}`, weblink, {
-            headers: {
-                Authorization: `Bearer ${bearerToken}`
-            }
-        });
-    }
+    //     await axios.put(`${POSTS_BASE_URL}/weblinks/${weblinkId}`, weblink, {
+    //         headers: {
+    //             Authorization: `Bearer ${bearerToken}`
+    //         }
+    //     });
+    // }
 
-    async getPost(id) {
-        const response = await axios.get(`${POSTS_BASE_URL}/posts/${id}`);
-        console.log("postsService getPosts:", response.data);
+    async getBlog(id) {
+        const response = await axios.get(`${awsUrlDevId}/dev/post/${id}`);
+        console.log("postsService getBlogs:", response.data);
         return response.data;
 
     }
 
-    async getPosts() {
-        const response = await axios.get(`${POSTS_BASE_URL}/posts`);
-        console.log("postsService getPosts:", response.data);
+    async getBlogs() {
+        const response = await axios.get(`${awsUrlDevAll}/dev/posts`);
+        console.log("postsService getBlogs:", response.data);
         return response.data;
     }
 
 }
 
-// export default PostService
-const postsService = new PostsService();
+// export default BlogService
+const postsService = new PublicBlogsService();
 export default postsService;  // Single export
