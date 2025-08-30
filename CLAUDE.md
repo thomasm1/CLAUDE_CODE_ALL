@@ -56,8 +56,8 @@ npm run db:seed                 # Seed test data
 cd dailytech-react
 
 # Development
-npm start                      # Start on port 3000
-npm run start3001              # Start on port 3001  
+npm start                      # Start on port 3003
+npm run dev                    # Start dev server (default port 3000)
 npm run build                  # Production build
 npm test                       # Run tests (54 passing tests)
 npm test -- --watchAll=false   # Single test run
@@ -112,7 +112,8 @@ cd kafka-consumer-opensearch
 ./gradlew bootRun                         # Start OpenSearch consumer
 
 # Infrastructure
-docker-compose up -d                      # Start Kafka + OpenSearch
+./start-dailytech-events.sh               # Sequential startup script (recommended)
+docker-compose up -d                      # Start Kafka + OpenSearch (manual)
 # Access OpenSearch at http://localhost:9200
 # Access Conduktor admin at http://localhost:8080 (admin@conduktor.io / adminP4ss!)
 ```
